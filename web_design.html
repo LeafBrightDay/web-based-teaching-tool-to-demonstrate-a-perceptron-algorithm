@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"></meta>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+// jquery
+var iter=0;
+$(document).ready(function(){
+    $("#previous").click(function(){ 
+	iter--;
+	switch (iter){
+	case 0:
+	  $('#head1').text('Biological Neural Networks');
+       $('#p1').text('The basic theory of BNNs is that a neuron will be fired if it has received from the presynaptic neurons a summary impulse, which exceeds a particular threshold. Each impulse is all-or-none event but the number of ionic channels triggered by the signal is different from synapse to synapse. The signal from a single synapse is able to overcome the threshold and force a neuron to fire an action potential, but other synapses could realise this only by simultaneously delivering their signals. Therefore, input from every synapse, or connection, to the neuron in the model network must be assigned with some value w, called weight of connection. Given that, it is able to draw an abstract neuron as a model unit of the artificial neural network.');	 		
+       $('#f1').show();
+	   $('#p2').text('An abstract neuron');
+	   $('#p2').show();
+	    $('#previous').hide();
+	  break;
+	case 1:
+	$('#head1').text('Breif introduction of ANN');
+       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');	 		
+	  	   	   $('#p2').text('McCulloch-Pitts Neuron');
+		$("#f3").remove();		
+		$('#next').show();
+	   var img = $('<img id="f2" class="vertical">'); 
+     img.attr('src', 'img/MP.jpg');
+	   img.appendTo($('#p1'));
+	   break;
+	 default:
+	 break;
+	 }
+});	
+});
+
+$(document).ready(function(){
+    $("#next").click(function(){ 
+	iter++;
+	switch(iter){
+	case 1:
+	 $('#head1').text('Breif introduction of ANN');
+       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');	 		
+	  	   	   $('#p2').text('McCulloch-Pitts Neuron');
+		$('#f1').hide();
+		$('#previous').show();
+	   var img = $('<img id="f2" class="vertical">'); 
+     img.attr('src', 'img/MP.jpg');
+	   img.appendTo($('#p1'));
+	  break;
+	case 2:
+	$('#head1').text('Visual Ilustration of Perceptron');
+       $('#p1').text('Finally, Frank Rosenblatt developed a machine that is able to recognise different patterns using linear threshold function in 1958. It is called perceptron as one kind of supervised learning. Perceptron is a neural network that changes with "experience", with an error-correction rule for altering the weights of connections. The simplest architecture of perceptron is made up of two layers. The first layer comprises input units and the second layer consists of output units.');	 		
+	  	   	   $('#p2').text('A single layer perceptron');
+		$('#f2').remove();
+		$('#next').hide();
+	   var img = $('<img id="f3">'); 
+     img.attr('src', 'img/perceptron.PNG');
+	   img.appendTo($('#p1'));
+	   break;
+      default:
+      break;
+}	  
+	});	
+});
+
+$(document).ready(function(){
+$("#Start").click(function(){
+$("#head2").text('Demonstration of perceptron learning rule');
+$("#c1").attr("src","img/GUI design.PNG");
+$("#Start").hide();
+$("#demo_p").text('All parameters and training set are shown below:');
+
+});
+});
+
+</script>
+
+<div class="header">
+  <h1>Web based teaching tool to demonstrate a perceptron algorithm</h1>
+  <p>The final year project made by Mofan Peng</p>
+  <p>Supervisor: Dr Irina V. Biktasheva</p>
+</div>
+
+<div class="tab">
+  <button class="tablinks" onclick="openSector(event, 'Background')" id="defaultOpen">Background</button>
+  <button class="tablinks" onclick="openSector(event, 'Demo')">Demo</button>
+  <button class="tablinks" onclick="openSector(event, 'UserGuide')" id="userGuide">User Guide</button>
+  <button class="tablinks" onclick="openSector(event, 'Run')">Run</button>
+</div>
+
+<div id="Background" class="tabcontent">
+  <h3 id="head1">Biological Neural Networks</h3>
+  <p id="p1">The basic theory of BNNs is that a neuron will be fired if it has received from the presynaptic neurons a summary impulse, which exceeds a particular threshold. Each impulse is all-or-none event but the number of ionic channels triggered by the signal is different from synapse to synapse. The signal from a single synapse is able to overcome the threshold and force a neuron to fire an action potential, but other synapses could realise this only by simultaneously delivering their signals. Therefore, input from every synapse, or &quotconnection&quot;, to the neuron in the model network must be assigned with some value w, called weight of connection. Given that, it is able to draw an abstract &quot;neuron&quot; as a model unit of the artificial neural network.</p>
+<img id="f1" src="img/BNN.PNG" alt="Biological Neural Network" >
+	<p id="p2" style="text-align:center;font-size:28px">An abstract neuron</p>
+	<button id="next" class="right">next</button>
+	<button id="previous" class="left" >previous</button>  
+  </div>
+
+<div id="Demo" class="tabcontent">
+  <h3 id="head2">Flow chart of perceptron rule</h3>
+  <p id="demo_p"></p>
+  <img id="c1" class="demo" src="img/flow chart1.PNG" ></img>
+  <button class="center" id="Start" title="click to start the demonstration">Start</button>
+  </div>
+ 
+<div id="UserGuide" class="tabcontent">
+  <h3 id="head3">User Guide</h3>
+  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter your desired numbers to finish the initial settings.</br><br>Step 3: Just click the "Next" button to observe every change of corresponding parameters. It will show you how the perceptron works. </p>
+  </div>
+ 
+ <div id="Run" class="run">
+  <form id="form" class="form">
+C: <input id="c" type="text" name="learning rate" maxlength="5" size="10" style="margin-right:20px; height: 30px">
+stopValue: <input id="stopvalue" type="text" name="stop value" maxlength="10" size="10" style="margin-right:200px; height: 30px ">
+threshold: <input id="threshold" type="text" name="threshold" size="10" maxlength="3" style="margin-right: 20px; height: 30px">
+maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlength="7" style="margin-right: 20px; height: 30px">
+<input type="button" value="Define training sets" id="btn0" class="btn0">
+<input type="button" value="Start" id="btn1" class="btn1">	
+<input type="button" value="Next" id="btn2" class="btn2">	
+<input type="button" value="Guide" id="btn3" class="btn3">
+<input type="button" value="Enter testing set" id="btn4" class="btn4" disabled>
+</form >
+  <canvas id="myCanvas" width="1087" height="579" class="canvas"></canvas>
+  <form id="setting" style="display: none" class="setting">
+  <p id="pattern"> Pattern number: 0 </p><br>
+   The number you input should be 0 or 1.<br><br>
+   a1: <input id="in1" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"> <br><br>
+   a2: <input id="in2" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px;margin-right:100px"> 
+   target_X1: <input id="out1" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"> <br><br>
+   a3: <input id="in3" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px;margin-right:100px"> 
+   target_X2: <input id="out2" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"><br><br>
+   a4: <input id="in4" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"> <br><br>
+   <input type="button" name="continue" style="font-size: 20px; margin-left: 150px" value="continue" id="continue">
+  </form>
+  <img src="img/RMS.PNG" id="RMS" style="display: none;" ></img>
+  </div>	
+ <script>     //jquery use .ready() to ensure the document is loaded. so if place this tag ahead the <body>. it will stop the <div> elements
+function openSector(evt, sectorName) {
+    var i, tabcontent, tablinks, run;
+    tabcontent = document.getElementsByClassName("tabcontent");
+	run=document.getElementsByClassName("run");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+	for (i=0; i<run.length;i++)
+	{ 
+	    run[i].style.display="none";
+	}
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(sectorName).style.display = "block";
+    evt.currentTarget.className += " active";
+};
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();   
+</script>
+<script type="text/javascript" src="js/canvas.js"></script>
+<script type="text/javascript" src="js/perceptron.js"></script>
+</body>
+</html>
