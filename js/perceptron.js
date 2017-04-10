@@ -46,7 +46,7 @@ for(var p=0;p<4;p++) { // parttern number=4, assumed
 	t+=this.error[j][p]*this.error[j][p];
 }
 this.RMS= Math.sqrt(t/8);
-limitLengthOfFloat(this.RMS,this.stopValue.toString().length);
+this.RMS=limitLengthOfFloat(this.RMS,this.stopValue.toString().length);
 this.n_iter++;//per calculation of RMS, per iteration
 }};
 
@@ -59,35 +59,36 @@ return arr;
 };
 
 //triggered by start and then set the threshold, stop value and maximun iteration.
-
 function defineTrainingSet(){
+var count=0; //initialization np=0
+var id=["in1","in2","in3","in4"];
 document.getElementById("myCanvas").style.display="none";
 document.getElementById("setting").style.display="block";
-var count=0; //to control the btn0
-document.getElementById("pattern").innerHTML="Pattern number: "+count;
-document.getElementById("continue").addEventListener("click",function(){
-	 var id=["in1","in2","in3","in4"];
+document.getElementById("pattern").innerHTML="Pattern number: 0";
+document.getElementById("btn0").removeEventListener("click",defineTrainingSet);//clicked no response when in setting
+document.getElementById("tbd").addEventListener("click",function(){
+	//if (count>=4) {count=0;}
+	 alert(count);
+	 document.getElementById("pattern").innerHTML="Pattern number: "+ (count+1);
 	 perceptron.input[0][count]=1;//bias
 	 for (var i = 1; i < 5; i++) {
 	 	perceptron.input[i][count]=document.getElementById(id[i-1]).value; } 
 	// get input values of target output   targetX[j][p]
 	perceptron.targetX[0][count]=document.getElementById("out1").value;
     perceptron.targetX[1][count]=document.getElementById("out2").value;
-    count++;
-    document.getElementById("pattern").innerHTML="Pattern number: "+count;
+    count++; //didn't work well
     if (count==3) {
-	document.getElementById("continue").value="submit";
-	document.getElementById("continue").id="submit";
-    perceptron.input[0][count]=1;//bias
+    perceptron.input[0][3]=1;//bias
 	 for (var i = 1; i < 5; i++) {
 	 	perceptron.input[i][3]=document.getElementById(id[i-1]).value; } 
 	// get input values of 4th target output   
 	perceptron.targetX[0][3]=document.getElementById("out1").value;
     perceptron.targetX[1][3]=document.getElementById("out2").value;
-    count=0;
-    document.getElementById("submit").addEventListener("click", finishSetting);
-
+    document.getElementById("tbd").value="submit";
+	document.getElementById("tbd").id="sub";
+    document.getElementById("sub").addEventListener("click", finishSetting);
 }})};
+document.getElementById("btn0").addEventListener("click", defineTrainingSet);
 
 //randomly generate initial weight of connections
 function startClicked(){
@@ -99,6 +100,7 @@ function startClicked(){
 	alert("The learningRate is: "+ perceptron.learningRate+"\nThe stop value is: "+perceptron.stopValue+"\nThe threshold is: "+perceptron.threshold+"\nThe maximun iteration is: "+perceptron.n_iter);
 	drawThreshold(perceptron.threshold);
 	document.getElementById("btn1").disabled="true";
+	document.getElementById("btn0").disabled="true";
 }
 document.getElementById("btn1").addEventListener("click",startClicked);
 
@@ -149,11 +151,12 @@ function enterTestingSet(){};
 
 function finishSetting(){
     document.getElementById("myCanvas").style.display="block";
-    document.getElementById("setting").style.display="none";
-    document.getElementById("submit").value="continue";
-    document.getElementById("submit").id="continue";
-     drawTargetX(perceptron.targetX); //draw target output
-     drawInputUnits(perceptron.input);
+    document.getElementById("setting").style.display="none"; 
+    document.getElementById("sub").value="continue";
+    document.getElementById("sub").id="tbd";
+    document.getElementById("btn0").addEventListener("click", defineTrainingSet);
+    drawTargetX(perceptron.targetX); //draw target output
+    drawInputUnits(perceptron.input);
 	alert("Setting finished!");}
 
 function getParameters(){
@@ -164,13 +167,14 @@ function getParameters(){
 }
 
 function limitLengthOfFloat(number,length){
-   var num=number.toString();
-   var str="";
-   for (var i = 0; i < length; i++) {
-   	   str=str.concat(num[i]);
-   }
-    return parseFloat(str);
+    var str=number.toString();
+    var minus=0;
+    for (var i = 0; i < str.length; i++) {
+    if (str[i]=='.') {
+    	minus=i+1; }}
+    if (minus==0) {return number;}
+    return number.toFixed(length-minus); 
 }
 
-document.getElementById("btn0").addEventListener("click", defineTrainingSet);
+
 
