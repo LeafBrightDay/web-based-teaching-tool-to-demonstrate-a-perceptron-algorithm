@@ -208,8 +208,8 @@ function drawInitialWeight(weight)
             iWeight[j][i]=canvas.getContext("2d");
             iWeight[j][i].font="20px Arial";
             iWeight[j][i].fillStyle="blue";
-            iWeight[j][i].textAlign="center";
-            iWeight[j][i].fillText(weight[j][i], 240+j*140, 165+90*i*(1-j)+185*j+i*30*j);
+            iWeight[j][i].textAlign="left";
+            iWeight[j][i].fillText(weight[j][i], 225+j*140, 165+90*i*(1-j)+185*j+i*30*j);
         }
     }
 }
@@ -241,24 +241,39 @@ function drawInitialWeight(weight)
 
  function drawUpdateWeight(weight){
   var iWeight=create2DArray(2,5);  //j=2 i=5
+  var wipe=[];
+  for (var j = 0; j < 2; j++) {
+        for (var i = 0; i < 5; i++) {
+            //clear former print
+            wipe[i]=canvas.getContext("2d");
+            wipe[i].clearRect(225+j*140, 145+90*i*(1-j)+185*j+i*30*j,40,20);}}
     for (var j = 0; j < 2; j++) {
         for (var i = 0; i < 5; i++) {
-            wipeCircleValue(230+j*140, 144+90*i*(1-j)+176*j+i*30*j);
+            //redraw line
             line[i]=canvas.getContext("2d");
+            line[i].beginPath();
             line[i].moveTo(155,170+i*90);  
             line[i].lineTo(445-50,260+j*180); 
-            line[i].stroke();//redraw line
+            line[i].stroke();
+            line[i].closePath();
+            //redraw circle
+            outputCircle=canvas.getContext("2d");
+            outputCircle.beginPath();
+            outputCircle.arc(480-50,260+180,35,0,2*Math.PI); 
+            outputCircle.stroke();
+            outputCircle.closePath();
+            //draw weight
             iWeight[j][i]=canvas.getContext("2d");
             iWeight[j][i].font="20px Arial";
             iWeight[j][i].fillStyle="red";
-            iWeight[j][i].textAlign="center";
-            iWeight[j][i].fillText(weight[j][i], 240+j*140, 165+90*i*(1-j)+185*j+i*30*j);
+            iWeight[j][i].textAlign="left";
+            iWeight[j][i].fillText(weight[j][i], 225+j*140, 165+90*i*(1-j)+185*j+i*30*j);
  }}}
 //every time get a 1D array. one pattern input units. a1,a2,a3,a4 
  function drawInputValue(inputUnit){
     var inputvalue=[];
     for (var i = 0; i < 4; i++) {
-      wipeTableValue(107,260+i*90);  
+      wipeTableValue(105,240+i*90);  
       inputvalue[i]=canvas.getContext("2d");
       inputvalue[i].font = "30px Arial";
       inputvalue[i].fillStyle = "blue";
@@ -313,37 +328,42 @@ function drawInitialWeight(weight)
 
 
  function showPatternNumber(num){
-  wipeVertical(585);
+  wipeVertical(585); // no arrow at all
 var line=canvas.getContext("2d");
+line.beginPath();
 line.moveTo(585,230+num*40);  
 line.lineTo(615,230+num*40); 
 line.stroke();  
+line.closePath();
 //draw arrow 
 for (var j = 0; j < 2; j++) {
 arrow[j]=canvas.getContext("2d");
+arrow[j].beginPath();
 arrow[j].moveTo(615,230+num*40);
 arrow[j].lineTo(615-10,230+num*40-(20-10*Math.sqrt(3))+j*(40-20*Math.sqrt(3)));// 15 degree
 arrow[j].stroke();  
+arrow[j].closePath();
 }
 }
 
 function changeIterationNumber(iter){
-  //show text "iteration"
-var ctx=canvas.getContext("2d");
+  var clr=canvas.getContext("2d");
+  clr.clearRect(900,80,200,30);
+  var ctx=canvas.getContext("2d");
     ctx.font = "30px Times New Roman";
     ctx.fillStyle = "blue";
     ctx.textAlign = "center";
-    ctx.clearRect(880,110,30,30);
     ctx.fillText(iter,920, 100); 
 }
 
 function drawRMS(RMS){
+     var clr=canvas.getContext("2d");
+  clr.clearRect(920,440,200,30);
 var ctx=canvas.getContext("2d");
     ctx.font = "30px Times New Roman";
     ctx.fillStyle = "blue";
     ctx.textAlign = "left";
-    ctx.clearRect(950,460,100,30);
-    ctx.fillText(RMS,950,460);
+    ctx.fillText(RMS,920,460);
 }
 
 
