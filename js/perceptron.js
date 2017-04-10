@@ -6,6 +6,7 @@ perceptron.output= create2DArray(2,4);  // j=2 p=4
 perceptron.error=create2DArray(2,4);   //j=2 p=4
 perceptron.RMS=0;        
 perceptron.n_iter=0;
+perceptron.maxIter=0;
 perceptron.threshold=0;
 perceptron.stopValue=0;
 perceptron.learningRate=0;
@@ -43,12 +44,11 @@ perceptron.calculateRMS=function(){
 	var t=0; // temperary stroage of error squared
 for(var p=0;p<4;p++) { // parttern number=4, assumed			
 	for (var j = 0; j < 2; j++) {
-	t+=this.error[j][p]*this.error[j][p];
-}
+	t+=this.error[j][p]*this.error[j][p];}}
 this.RMS= Math.sqrt(t/8);
 this.RMS=limitLengthOfFloat(this.RMS,this.stopValue.toString().length);
 this.n_iter++;//per calculation of RMS, per iteration
-}};
+};
 
 function create2DArray(row,col){
 var arr= new Array(row);
@@ -67,8 +67,7 @@ document.getElementById("setting").style.display="block";
 document.getElementById("pattern").innerHTML="Pattern number: 0";
 document.getElementById("btn0").removeEventListener("click",defineTrainingSet);//clicked no response when in setting
 document.getElementById("tbd").addEventListener("click",function(){
-	//if (count>=4) {count=0;}
-	 alert(count);
+
 	 document.getElementById("pattern").innerHTML="Pattern number: "+ (count+1);
 	 perceptron.input[0][count]=1;//bias
 	 for (var i = 1; i < 5; i++) {
@@ -97,45 +96,24 @@ function startClicked(){
 	drawInitialWeight(perceptron.weight);
 	getParameters();
 	alert("Reading input parameters......");
-	alert("The learningRate is: "+ perceptron.learningRate+"\nThe stop value is: "+perceptron.stopValue+"\nThe threshold is: "+perceptron.threshold+"\nThe maximun iteration is: "+perceptron.n_iter);
+	alert("The learningRate is: "+ perceptron.learningRate+"\nThe stop value is: "+perceptron.stopValue+"\nThe threshold is: "+perceptron.threshold+"\nThe maximun iteration is: "+perceptron.maxIter);
 	drawThreshold(perceptron.threshold);
 	document.getElementById("btn1").disabled="true";
 	document.getElementById("btn0").disabled="true";
+	document.getElementById("btn2").removeAttribute("disabled");
 }
 document.getElementById("btn1").addEventListener("click",startClicked);
 
 //show from pattern 0 to 3, each pattern per next click
-var cNext=0;
+
 function nextClicked(){
- //step1: draw input value.
- var inputValue=[];
- for (var i = 0; i < 4; i++) {
- inputValue[i]=perceptron.input[i+1][cNext];}
- drawInputValue(inputValue);
- //step2: alert present pattern number.
- showPatternNumber(cNext);
- //step3: calculate output value
- perceptron.calculateOutput(cNext); 
- drawOutputValue(perceptron.output,cNext);
- drawOutputUnit(perceptron.output,cNext);
- //step4: calculate error
- perceptron.calculateError(cNext);
- //step5: calculate delta weight
- perceptron.updateWeight(cNext);
- drawUpdateWeight(perceptron.weight);
- cNext++;
- if (cNext==4) {
- 	alert("one iteration finished, starting calculate RMS......")
- 	perceptron.calculateRMS();
- 	drawRMS(perceptron.RMS);
- 	if (perceptron.RMS>perceptron.stopValue) {
- 		changeIterationNumber(perceptron.n_iter); 
- 		cNext=0;
- 	}else{alert("end"); 
- 	document.getElementById("btn4").removeAttribute("disabled");
- }
- }
-}
+ if (perceptron.n_iter<=perceptron.maxIter)
+ learningProcess();
+ else{ 
+ alert("Reached maximun iteration times!");
+document.getElementById("btn2").disabled="true";
+document.getElementById("btn4").removeAttribute("disabled");
+}}
 document.getElementById("btn2").addEventListener("click",nextClicked);
 
 function guideClicked(){
@@ -155,6 +133,7 @@ function finishSetting(){
     document.getElementById("sub").value="continue";
     document.getElementById("sub").id="tbd";
     document.getElementById("btn0").addEventListener("click", defineTrainingSet);
+    document.getElementById("btn1").removeAttribute("disabled");
     drawTargetX(perceptron.targetX); //draw target output
     drawInputUnits(perceptron.input);
 	alert("Setting finished!");}
@@ -163,7 +142,7 @@ function getParameters(){
 	perceptron.learningRate=document.getElementById("c").value;
 	perceptron.threshold=document.getElementById("threshold").value;
 	perceptron.stopValue=document.getElementById("stopvalue").value;
-	perceptron.n_iter=document.getElementById('iter').value;
+	perceptron.maxIter=document.getElementById('iter').value;
 }
 
 function limitLengthOfFloat(number,length){
@@ -176,5 +155,33 @@ function limitLengthOfFloat(number,length){
     return number.toFixed(length-minus); 
 }
 
+function learningProcess(){
+	//step1: draw input value.
+	var inputValue=[];
+ for(var j=0;j<4;j++){
+ for (var i = 0; i < 4; i++) {
+ inputValue[i]=perceptron.input[i+1][j];}
+    drawInputValue(inputValue);
+ //step2: alert present pattern number.
+    showPatternNumber(j);
+ //step3: calculate output value
+ perceptron.calculateOutput(j); 
+    drawOutputValue(perceptron.output,j);
+    drawOutputUnit(perceptron.output,j);
+ //step4: calculate error
+ perceptron.calculateError(j);
+ //step5: calculate delta weight
+ perceptron.updateWeight(j);
+    drawUpdateWeight(perceptron.weight);
+ if (j==3) {
+ 	alert("One iteration finished, starting calculate RMS......");
+ 	perceptron.calculateRMS();//iter++
+ 	drawRMS(perceptron.RMS);
+ 	if (perceptron.RMS>perceptron.stopValue)
+ 	changeIterationNumber(perceptron.n_iter); 
+ 	else{alert("RMS is less than the stopValue, the computation is stopped!"); 
+ 	document.getElementById("btn2").disabled="true";
+ 	document.getElementById("btn4").removeAttribute("disabled");
+ }}}}
 
 
