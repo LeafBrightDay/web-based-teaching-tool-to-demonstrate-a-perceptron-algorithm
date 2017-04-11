@@ -20,10 +20,10 @@ ctx[i].textAlign = "center";
 ctx[i].fillText(text[i], 120+i*180, 70); }//tags
 //input units & text
 for (var i = 0; i < 5; i++) {
-	inputCircle[i]=canvas.getContext("2d");
-	inputCircle[i].beginPath();
-	inputCircle[i].arc(120,170+i*90,35,0,2*Math.PI);// margin 20
-	inputCircle[i].stroke();
+  inputCircle[i]=canvas.getContext("2d");
+  inputCircle[i].beginPath();
+  inputCircle[i].arc(120,170+i*90,35,0,2*Math.PI);// margin 20
+  inputCircle[i].stroke();
     iUnitText[i]=canvas.getContext("2d");
     iUnitText[i].font = "30px Times New Roman";
     iUnitText[i].fillStyle = "black";
@@ -70,7 +70,7 @@ for (var j = 0; j < 2; j++) {
 arrow[j]=canvas.getContext("2d");
 arrow[j].moveTo(560,260+i*180);
 arrow[j].lineTo(560-10,260+i*180-(20-10*Math.sqrt(3))+j*(40-20*Math.sqrt(3)));// 15 degree
-arrow[j].stroke();	}
+arrow[j].stroke();  }
 //draw X(output value)
 oUnitText[i]=canvas.getContext("2d");
 oUnitText[i].font="30px Times New Roman";
@@ -88,11 +88,11 @@ tempEqual[i].textAlign = "center";
 tempEqual[i].fillText("=", 460+50, 250+i*180);}
 //weight connections
 for (var i = 0; i < 5; i++) {
-	for (var j = 0; j < 2; j++) {
-	line[i]=canvas.getContext("2d");
-	line[i].moveTo(155,170+i*90);  
-	line[i].lineTo(445-50,260+j*180); 
-	line[i].stroke();}}
+  for (var j = 0; j < 2; j++) {
+  line[i]=canvas.getContext("2d");
+  line[i].moveTo(155,170+i*90);  
+  line[i].lineTo(445-50,260+j*180); 
+  line[i].stroke();}}
 //bias a0=1
 var bias=canvas.getContext("2d");
     bias.font = "40px Times New Roman";
@@ -267,7 +267,7 @@ function drawInitialWeight(weight)
             iWeight[j][i].font="20px Arial";
             iWeight[j][i].fillStyle="red";
             iWeight[j][i].textAlign="left";
-            iWeight[j][i].fillText(weight[j][i], 225+j*140, 165+90*i*(1-j)+185*j+i*30*j);
+            iWeight[j][i].fillText(weight[j][i].toFixed(1), 225+j*140, 165+90*i*(1-j)+185*j+i*30*j);
  }}}
 //every time get a 1D array. one pattern input units. a1,a2,a3,a4 
  function drawInputValue(inputUnit){
