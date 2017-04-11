@@ -67,26 +67,19 @@ document.getElementById("setting").style.display="block";
 document.getElementById("pattern").innerHTML="Pattern number: 0";
 document.getElementById("btn0").removeEventListener("click",defineTrainingSet);//clicked no response when in setting
 document.getElementById("tbd").addEventListener("click",function(){
-
-	 document.getElementById("pattern").innerHTML="Pattern number: "+ (count+1);
-	 perceptron.input[0][count]=1;//bias
-	 for (var i = 1; i < 5; i++) {
-	 	perceptron.input[i][count]=document.getElementById(id[i-1]).value; } 
+	document.getElementById("pattern").innerHTML="Pattern number: "+ (count+1);
+	perceptron.input[0][count]=1;//bias
+	for (var i = 1; i < 5; i++) {
+	perceptron.input[i][count]=document.getElementById(id[i-1]).value; } 
 	// get input values of target output   targetX[j][p]
 	perceptron.targetX[0][count]=document.getElementById("out1").value;
     perceptron.targetX[1][count]=document.getElementById("out2").value;
-    count++; //didn't work well
+    count++;
     if (count==3) {
-    perceptron.input[0][3]=1;//bias
-	 for (var i = 1; i < 5; i++) {
-	 	perceptron.input[i][3]=document.getElementById(id[i-1]).value; } 
-	// get input values of 4th target output   
-	perceptron.targetX[0][3]=document.getElementById("out1").value;
-    perceptron.targetX[1][3]=document.getElementById("out2").value;
-    document.getElementById("tbd").value="submit";
-	document.getElementById("tbd").id="sub";
-    document.getElementById("sub").addEventListener("click", finishSetting);
-}})};
+    document.getElementById("tbd").style.display="none";
+	document.getElementById("sub").style.display="block";
+	document.getElementById("sub").addEventListener("click", function(){finishSetting(id);});
+    }})};
 document.getElementById("btn0").addEventListener("click", defineTrainingSet);
 
 //randomly generate initial weight of connections
@@ -107,7 +100,7 @@ document.getElementById("btn1").addEventListener("click",startClicked);
 //show from pattern 0 to 3, each pattern per next click
 
 function nextClicked(){
- if (perceptron.n_iter<=perceptron.maxIter)
+ if (perceptron.n_iter<perceptron.maxIter)
  learningProcess();
  else{ 
  alert("Reached maximun iteration times!");
@@ -127,11 +120,17 @@ document.getElementById("btn3").addEventListener("click",guideClicked);
 function enterTestingSet(){};
 
 
-function finishSetting(){
+function finishSetting(id){
+	perceptron.input[0][3]=1;//bias
+	for (var i = 1; i < 5; i++) {
+	perceptron.input[i][3]=document.getElementById(id[i-1]).value; } 
+	// get input values of target output   targetX[j][p]
+	perceptron.targetX[0][3]=document.getElementById("out1").value;
+    perceptron.targetX[1][3]=document.getElementById("out2").value;
     document.getElementById("myCanvas").style.display="block";
     document.getElementById("setting").style.display="none"; 
-    document.getElementById("sub").value="continue";
-    document.getElementById("sub").id="tbd";
+    document.getElementById("sub").style.display="none";
+    document.getElementById("tbd").style.display="block";
     document.getElementById("btn0").addEventListener("click", defineTrainingSet);
     document.getElementById("btn1").removeAttribute("disabled");
     drawTargetX(perceptron.targetX); //draw target output
@@ -163,7 +162,7 @@ function learningProcess(){
  inputValue[i]=perceptron.input[i+1][j];}
     drawInputValue(inputValue);
  //step2: alert present pattern number.
-    showPatternNumber(j);
+ //   showPatternNumber(j);
  //step3: calculate output value
  perceptron.calculateOutput(j); 
     drawOutputValue(perceptron.output,j);
