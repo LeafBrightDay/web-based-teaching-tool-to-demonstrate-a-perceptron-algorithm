@@ -140,6 +140,16 @@ margin-top: 30px;
     margin-right: 110px;
 }
 
+#btn01{  
+    height: 40px; 
+    width: 200px;
+    margin-top: 40px;
+    background-color: #cce5ff;
+    border-radius: 24px; 
+    margin-right: 110px;
+    display: none;
+}
+
 #btn1{  
     margin-left:40px;
     height: 40px; 
@@ -178,6 +188,18 @@ margin-top: 30px;
 
 
 #setting{
+    width: 1088px;
+    height :580px;
+     float: left;
+    border-left: none;
+    padding-top: 100px;
+    padding-left: 100px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    font-size: 24px;
+}
+
+#testing{
     width: 1088px;
     height :580px;
      float: left;
