@@ -169,10 +169,7 @@ ctx[i].fillStyle = "black";
 ctx[i].textAlign = "center";   
 ctx[i].fillText(tempText[i], 920+i*100, 200);
 }
-//draw RMS
-var figure=canvas.getContext("2d");
-var img=document.getElementById("RMS");
-figure.drawImage(img,670,400);
+
 //show weight..final initialization..
 var canvas_weight=[]; 
 var tag=[];
@@ -356,14 +353,47 @@ function changeIterationNumber(iter){
     ctx.fillText(iter,920, 100); 
 }
 
+//draw RMS
+var figure=canvas.getContext("2d");
+var img=document.getElementById("RMS");
+figure.drawImage(img,670,435);
+
 function drawRMS(RMS){
-     var clr=canvas.getContext("2d");
-  clr.clearRect(920,440,200,30);
+var clr=canvas.getContext("2d");
+    clr.clearRect(920,480,200,30);
 var ctx=canvas.getContext("2d");
     ctx.font = "30px Times New Roman";
     ctx.fillStyle = "blue";
     ctx.textAlign = "left";
-    ctx.fillText(RMS,920,460);
+    ctx.fillText(RMS,920,500);
 }
 
+function showTesting(converge){
+    var clr=canvas.getContext("2d");
+    clr.clearRect(350,120,400,30);
+    var ctx=canvas.getContext("2d");
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "left";
+if (converge) ctx.fillText("TESTING!",350,140);
+else ctx.fillText("NOT CONVERGED!",350,140);  
+}
+
+function showTestingResult(match){
+    if (match) {
+    var clr=canvas.getContext("2d");
+    clr.clearRect(730,390,400,30);
+    alert("The testing set has been matched.\nThe corresponding pattern number is: "+perceptron.numberOfPattern);
+    showPatternNumber(perceptron.numberOfPattern);
+    }else{
+    alert("The testing set is unknown!");
+    var clr=canvas.getContext("2d");
+    clr.clearRect(730,390,400,30);
+    var ctx=canvas.getContext("2d");
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "RED";
+    ctx.textAlign = "left";
+    ctx.fillText("UNKNOWN SET!",730,420);  
+    }
+}
 
