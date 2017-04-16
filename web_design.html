@@ -110,7 +110,9 @@ $("#demo_p").text('All parameters and training set are shown below:');
  
 <div id="UserGuide" class="tabcontent">
   <h3 id="head3">User Guide</h3>
-  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter your desired numbers to finish the initial settings.</br><br>Step 3: Just click the "Next" button to observe every change of corresponding parameters. It will show you how the perceptron works. </p>
+  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter valid numbers of learning rate (C), stop value (stopValue), threshold and maximum number of iterations(maximum_iteration). Typically, the range of C is 0.1~0.5, the stopValue is <= 0.01, the value of threshold is based on which logical gate you hope to simulate ("1" for "OR", "4" for "AND") and the maximun_iteration could be >=100.</br><br>Step 3: Just click the "Define training sets" button to define the training set which has 4 patterns.</br><br>Step 4: If you hope to redefine the training sets, you could click "Modify training sets" button and choose the particular pattern to change its value. </br><br>Step 5: Ensure above settings are ok, please click "Start" button to begin the simulation.</br><br>Step 6: Click "Next" button to observe the update of weight connections and output values during each iteration.</br><br>Step 7: After the training process is finished, Click "Enter testing set" button to define a new testing set to check if the perceptron is able to recognize a pattern.</p>
+  <p style="font-weight: bold;font-size: 20px">Note: If you find any problem in the applet, you can click the "Guide" button to see the instructions.</p>
+  <p style="color: red; font-size: 30px; font-weight: bold">Warning: Any incorrect use of the applet will lead to a refresh (F5) of the web page in order to obtain a correct learning experience.</p>
   </div>
  
  <div id="Run" class="run">
@@ -120,8 +122,9 @@ stopValue: <input id="stopvalue" type="text" name="stop value" maxlength="10" si
 threshold: <input id="threshold" type="text" name="threshold" size="10" maxlength="3" style="margin-right: 20px; height: 30px">
 maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlength="7" style="margin-right: 20px; height: 30px">
 <input type="button" value="Define training sets" id="btn0" class="btn0">
-<input type="button" value="Start" id="btn1" class="btn1">	
-<input type="button" value="Next" id="btn2" class="btn2">	
+<input type="button" value="Modify training sets" id="btn01" class="btn01">
+<input type="button" value="Start" id="btn1" class="btn1" disabled>	
+<input type="button" value="Next" id="btn2" class="btn2" disabled>	
 <input type="button" value="Guide" id="btn3" class="btn3">
 <input type="button" value="Enter testing set" id="btn4" class="btn4" disabled>
 </form >
@@ -129,14 +132,24 @@ maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlen
   <form id="setting" style="display: none" class="setting">
   <p id="pattern"> Pattern number: 0 </p><br>
    The number you input should be 0 or 1.<br><br>
-   a1: <input id="in1" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"> <br><br>
-   a2: <input id="in2" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px;margin-right:100px"> 
-   target_X1: <input id="out1" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"> <br><br>
-   a3: <input id="in3" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px;margin-right:100px"> 
-   target_X2: <input id="out2" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"><br><br>
-   a4: <input id="in4" type="number" name="input unit 1" min="0" max="1" value="0" style="font-size: 20px"> <br><br>
-   <input type="button" name="continue" style="font-size: 20px; margin-left: 150px" value="continue" id="tbd">
-   <input type="button" name="submit" style="font-size: 20px; margin-left: 150px; display: none" value="submit" id="sub">
+   a1: <input id="in1" type="number" name="input unit 1" min="0" max="1" value="0" maxlength="1" style="font-size: 20px"> <br><br>
+   a2: <input id="in2" type="number" name="input unit 2" min="0" max="1" value="0" maxlength="1" style="font-size: 20px;margin-right:100px"> 
+   target_X1: <input id="out1" type="number" name="target_X1" min="0" max="1" value="0" maxlength="1" style="font-size: 20px"> <br><br>
+   a3: <input id="in3" type="number" name="input unit 3" min="0" max="1" value="0" maxlength="1" style="font-size: 20px;margin-right:100px"> 
+   target_X2: <input id="out2" type="number" name="target_X2" min="0" max="1" value="0" maxlength="1" style="font-size: 20px"><br><br>
+   a4: <input id="in4" type="number" name="input unit 4" min="0" max="1" value="0" maxlength="1" style="font-size: 20px"> <br><br>
+   <input type="button"  style="font-size: 20px; margin-left: 150px" value="continue" id="tbd">
+   <input type="button"  style="font-size: 20px; margin-left: 150px; display: none" value="submit" id="sub1">
+   <input type="button"  style="font-size: 20px; margin-left: 150px; display: none" value="submit" id="sub2">
+  </form>
+  <form id="testing" style="display: none" class="testing">
+  <p id="pattern1"> Pattern number: 0 </p><br>
+   The number you input should be 0 or 1.<br><br>
+    a1: <input id="t1" type="number" name="input unit 1" min="0" max="1" value="0" maxlength="1" style="font-size: 20px;"> <br><br>
+    a2: <input id="t2" type="number" name="input unit 2" min="0" max="1" value="0" maxlength="1" style="font-size: 20px;"> <br><br>
+    a3: <input id="t3" type="number" name="input unit 3" min="0" max="1" value="0" maxlength="1" style="font-size: 20px;"> <br><br>
+    a4: <input id="t4" type="number" name="input unit 4" min="0" max="1" value="0" maxlength="1" style="font-size: 20px;"> <br><br>
+   <input type="button"  style="font-size: 20px; margin-left: 150px; display: none" value="submit" id="sub">
   </form>
   <img src="img/RMS.PNG" id="RMS" style="display: none;" ></img>
   </div>	
