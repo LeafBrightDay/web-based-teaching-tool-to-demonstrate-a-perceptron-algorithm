@@ -110,10 +110,8 @@ img.vertical{
 }
 
 img.demo{
-    display: block;
-    margin: auto;
     width: 1000px;
-    height:600px ;
+    height:570px ;
 }
 
 button.right{
