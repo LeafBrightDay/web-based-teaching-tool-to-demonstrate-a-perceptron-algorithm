@@ -12,6 +12,7 @@ perceptron.threshold=0;
 perceptron.stopValue=0;
 perceptron.learningRate=0;
 perceptron.numberOfPattern=0;
+var id=["in1","in2","in3","in4"];
 
 perceptron.generateRandomWeight=function(){
 for (var j = 0; j < 2; j++) {
@@ -60,16 +61,18 @@ return arr;
 };
 
 //triggered by start and then set the threshold, stop value and maximun iteration.
-var id=["in1","in2","in3","in4"];
 function defineTrainingSet(){
 perceptron.numberOfPattern=0; //initialization np=0
 document.getElementById("myCanvas").style.display="none";
 document.getElementById("setting").style.display="block";
 document.getElementById("pattern").innerHTML="Pattern number: 0";
 document.getElementById("btn0").removeEventListener("click",defineTrainingSet);//clicked no response when in setting
-document.getElementById("tbd").addEventListener("click",function(){
-	document.getElementById("pattern").innerHTML="Pattern number: "+ (perceptron.numberOfPattern+1);
-	perceptron.input[0][perceptron.numberOfPattern]=1;//bias
+document.getElementById("tbd").onclick=function(){continueClicked();}};
+
+document.getElementById("btn0").addEventListener("click", defineTrainingSet);
+
+function continueClicked(){
+    perceptron.input[0][perceptron.numberOfPattern]=1;//bias
 	for (var i = 1; i < 5; i++) {
 	perceptron.input[i][perceptron.numberOfPattern]=document.getElementById(id[i-1]).value; 
 	if (!validateBoundOfInput(perceptron.input[i][perceptron.numberOfPattern],0,1)) {
@@ -82,13 +85,14 @@ document.getElementById("tbd").addEventListener("click",function(){
         !validateBoundOfInput(perceptron.targetX[1][perceptron.numberOfPattern],0,1)) {
     	alert("Please check target outputs, they should be 0 or 1.");
 		return;}
+	document.getElementById("pattern").innerHTML="Pattern number: "+ (perceptron.numberOfPattern+1);
     perceptron.numberOfPattern++;
     if (perceptron.numberOfPattern==3) {
     document.getElementById("tbd").style.display="none";
 	document.getElementById("sub1").style.display="block";
 	document.getElementById("sub1").onclick= function(){finishSetting(perceptron.numberOfPattern,id);};
-    }})};
-document.getElementById("btn0").addEventListener("click", defineTrainingSet);
+    }	
+}
 
 function modifyTrainingSet(){
 	var str=prompt("Choose which pattern (0-3) to modify:","0");
@@ -97,6 +101,7 @@ function modifyTrainingSet(){
 	document.getElementById("myCanvas").style.display="none";
     document.getElementById("setting").style.display="block";
     document.getElementById("pattern").innerHTML="Pattern number: "+perceptron.numberOfPattern;
+    document.getElementById("tbd").style.display="none";
     document.getElementById("btn01").removeEventListener("click",modifyTrainingSet);
     document.getElementById("sub2").onclick=function(){finishSetting(perceptron.numberOfPattern,id);};
     showPatternNumber(perceptron.numberOfPattern);
@@ -201,6 +206,7 @@ input_test[i-1]=perceptron.input[i][4];}
 document.getElementById("btn4").addEventListener("click",enterTestingSet);
 }
 
+//for testing
 function patternIsMatched(){
 for (var p = 0; p < 4; p++) {
 	var count=0;
@@ -210,7 +216,21 @@ for (var p = 0; p < 4; p++) {
 		perceptron.numberOfPattern=p;
 		return true;}}
 	return false;}   
-//need improvement. if p=0, match is true. else computation is a kind of waste
+
+//for define/modify
+function checkDuplicateDefine(){
+for (var k = 1; k < 4; k++) {
+var count=0;
+for (var i = 1; i < 5; i++) {
+if (perceptron.input[i][0]==perceptron.input[i][k]) count++;
+if (count==4) {  //4 inputs are identical.
+	var temp=0;
+	for (var j = 0; j < 2; j++) {
+	if (perceptron.targetX[j][0]==perceptron.targetX[j][k]) temp++;
+	if (temp==2) {//2 target outputs are identical
+	alert("The training set has duplicate pattern.\nPlease define it again!");
+	return true;
+}}}}}return false;}
 
 function finishSetting(np,id){
 	perceptron.input[0][np]=1;//bias
@@ -227,15 +247,24 @@ function finishSetting(np,id){
     	alert("Please check target outputs, they should be 0 or 1.");
 		return;}
     document.getElementById("myCanvas").style.display="block";
-    document.getElementById("setting").style.display="none"; 
+    document.getElementById("setting").style.display="none";
+    drawInputUnits(perceptron.input);
+    drawTargetX(perceptron.targetX); //draw target output
+    // if all patterns are different, tbd...
+    if(checkDuplicateDefine()) {
+    document.getElementById("tbd").style.display="block";
+	document.getElementById("sub1").style.display="none";
+    document.getElementById("btn0").addEventListener("click",defineTrainingSet);
+    document.getElementById("btn01").addEventListener("click", modifyTrainingSet);
+    document.getElementById("btn1").disabled="true";
+    return;
+    }
     document.getElementById("sub1").style.display="none";
     document.getElementById("sub2").style.display="block";
     document.getElementById("btn0").style.display="none";
     document.getElementById("btn01").style.display="initial";
     document.getElementById("btn01").addEventListener("click", modifyTrainingSet);
     document.getElementById("btn1").removeAttribute("disabled");
-    drawTargetX(perceptron.targetX); //draw target output
-    drawInputUnits(perceptron.input);
 	alert("Setting finished!");}
 
 function getParameters(){
@@ -250,6 +279,7 @@ function validateBoundOfInput(x,lowerbound,upperbound){
 		if (x== "") throw "empty";
 		if (isNaN(x)) throw "invalid";
 		x=Number(x); //return the value of the string
+		if (!Number.isInteger(x)) throw "not an integer";
 		if (x<lowerbound) throw "too small";
 		if (x>upperbound) throw "too large";
 	}
