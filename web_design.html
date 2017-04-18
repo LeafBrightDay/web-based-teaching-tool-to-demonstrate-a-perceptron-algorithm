@@ -69,7 +69,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 $("#Start").click(function(){
-$("#head2").text('Demonstration of perceptron learning rule');
+$("#head2").text('Initial settings of the perceptron');
 $("#c1").attr("src","img/GUI design.PNG");
 $("#Start").hide();
 $("#Back").show();
@@ -121,7 +121,7 @@ $("#demo_p").hide();
  
 <div id="UserGuide" class="tabcontent">
   <h3 id="head3">User Guide</h3>
-  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter valid numbers of learning rate (C), stop value (stopValue), threshold and maximum number of iterations(maximum_iteration). Typically, the range of C is 0.1~0.5, the stopValue is <= 0.01, the value of threshold is 0~10 (since the random initial weight is about 0-2) and the maximun_iteration could be >=100.</br><br>Step 3: Just click the "Define training sets" button to define the training set which has 4 patterns.</br><br>Step 4: If you hope to redefine the training sets, you could click "Modify training sets" button and choose the particular pattern to change its value. </br><br>Step 5: Ensure above settings are ok, please click "Start" button to begin the simulation.</br><br>Step 6: Click "Next" button to observe the update of weight connections and output values during each iteration.</br><br>Step 7: If the perceptron is successfully trained, "Enter testing set" button is okey for defining a new testing set to check if the perceptron is able to recognize a pattern.</p>
+  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter valid numbers of learning rate (C), stop value (stopValue), threshold and maximum number of iterations(maximum_iteration). Typically, the range of C is 0.1~0.5, the stopValue is <= 0.01, the value of threshold is 0~7.5 (since the random initial weight is about 0-1.5) and the maximun_iteration could be >=100.</br><br>Step 3: Just click the "Define training sets" button to define the training set which has 4 patterns.</br><br>Step 4: If you hope to redefine the training sets, you could click "Modify training sets" button and choose the particular pattern to change its value. </br><br>Step 5: Ensure above settings are ok, please click "Start" button to begin the simulation.</br><br>Step 6: Click "Next" button to observe the update of weight connections and output values during each iteration.</br><br>Step 7: If the perceptron is successfully trained, "Enter testing set" button is okey for defining a new testing set to check if the perceptron is able to recognize a pattern.</p>
   <p style="font-weight: bold;font-size: 20px">Note: If you find any problem in the applet, you can click the "Guide" button to see the instructions.</p>
   <p style="color: red; font-size: 30px; font-weight: bold">Warning: Any incorrect use of the applet will lead to a refresh (F5) of the web page in order to obtain a correct learning experience.</p>
   </div>
