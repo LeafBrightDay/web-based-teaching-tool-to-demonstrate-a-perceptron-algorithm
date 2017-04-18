@@ -312,25 +312,30 @@ function validateLengthOfInput(x,max_length){
     return true;
 }
 
+var nop=0;//number of pattern
+var stopLearn;
 function learningProcess(){
 	//step 0: clean vertical arrow
 	 wipeVertical(585);
 	//step1: draw input value.
 	var inputValue=[];
- for(var j=0;j<4;j++){
- for (var i = 0; i < 4; i++) {
- inputValue[i]=perceptron.input[i+1][j];}
+	for (var i = 0; i < 4; i++) {
+    inputValue[i]=perceptron.input[i+1][nop];}
     drawInputValue(inputValue);
- //step2: calculate output value
- perceptron.calculateOutput(j); 
-    drawOutputValue(perceptron.output,j);
-    drawOutputUnit(perceptron.output,j);
- //step3: calculate error
- perceptron.calculateError(j);
- //step4: calculate delta weight
- perceptron.updateWeight(j);
+    //step2: calculate output value
+    perceptron.calculateOutput(nop); 
+    drawOutputValue(perceptron.output,nop);
+    drawOutputUnit(perceptron.output,nop);
+    //step3: show current pattern
+    showPatternNumber(nop);
+    //step4: calculate error
+    perceptron.calculateError(nop);
+    //step5: calculate delta weight
+    perceptron.updateWeight(nop);
     drawUpdateWeight(perceptron.weight);
- if (j==3) {
+ if (nop==3) {
+ 	nop=0;
+ 	clearTimeout(timeOutId);
  	alert("One iteration finished, starting calculate RMS......");
  	perceptron.calculateRMS();//iter++
  	drawRMS(perceptron.RMS);
@@ -339,6 +344,10 @@ function learningProcess(){
  	else{alert("RMS is less than the stopValue, the computation is stopped!"); 
  	document.getElementById("btn2").disabled="true";
  	document.getElementById("btn4").removeAttribute("disabled");
- }}}}
+ }return;}
+    timeOutId=setTimeout(learningProcess,1500); //delay 1.5 secs
+    nop++;
+ }
 
 
+ 
