@@ -97,7 +97,8 @@ function continueClicked(){
 function modifyTrainingSet(){
 	var str=prompt("Choose which pattern (0-3) to modify:","0");
 	if (!str) return; // click "cancle"
-	perceptron.numberOfPattern=parseInt(str);
+	perceptron.numberOfPattern=str;
+	if(!validateBoundOfInput(perceptron.numberOfPattern,0,3)) return;
 	document.getElementById("myCanvas").style.display="none";
     document.getElementById("setting").style.display="block";
     document.getElementById("pattern").innerHTML="Pattern number: "+perceptron.numberOfPattern;
