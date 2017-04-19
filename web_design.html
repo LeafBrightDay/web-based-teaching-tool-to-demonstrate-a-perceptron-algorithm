@@ -11,60 +11,60 @@
 var iter=0;
 $(document).ready(function(){
     $("#previous").click(function(){ 
-	iter--;
-	switch (iter){
-	case 0:
-	  $('#head1').text('Biological Neural Networks');
-       $('#p1').text('The basic theory of BNNs is that a neuron will be fired if it has received from the presynaptic neurons a summary impulse, which exceeds a particular threshold. Each impulse is all-or-none event but the number of ionic channels triggered by the signal is different from synapse to synapse. The signal from a single synapse is able to overcome the threshold and force a neuron to fire an action potential, but other synapses could realise this only by simultaneously delivering their signals. Therefore, input from every synapse, or connection, to the neuron in the model network must be assigned with some value w, called weight of connection. Given that, it is able to draw an abstract neuron as a model unit of the artificial neural network.');	 		
+  iter--;
+  switch (iter){
+  case 0:
+    $('#head1').text('Biological Neural Networks');
+       $('#p1').text('The basic theory of BNNs is that a neuron will be fired if it has received from the presynaptic neurons a summary impulse, which exceeds a particular threshold. Each impulse is all-or-none event but the number of ionic channels triggered by the signal is different from synapse to synapse. The signal from a single synapse is able to overcome the threshold and force a neuron to fire an action potential, but other synapses could realise this only by simultaneously delivering their signals. Therefore, input from every synapse, or connection, to the neuron in the model network must be assigned with some value w, called weight of connection. Given that, it is able to draw an abstract neuron as a model unit of the artificial neural network.');      
        $('#f1').show();
-	   $('#p2').text('An abstract neuron');
-	   $('#p2').show();
-	    $('#previous').hide();
-	  break;
-	case 1:
-	$('#head1').text('Breif introduction of ANN');
-       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');	 		
-	  	   	   $('#p2').text('McCulloch-Pitts Neuron');
-		$("#f3").remove();		
-		$('#next').show();
-	   var img = $('<img id="f2" class="vertical">'); 
+     $('#p2').text('An abstract neuron');
+     $('#p2').show();
+      $('#previous').hide();
+    break;
+  case 1:
+  $('#head1').text('Breif introduction of ANN');
+       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');     
+             $('#p2').text('McCulloch-Pitts Neuron');
+    $("#f3").remove();    
+    $('#next').show();
+     var img = $('<img id="f2" class="vertical">'); 
      img.attr('src', 'img/MP.jpg');
-	   img.appendTo($('#p1'));
-	   break;
-	 default:
-	 break;
-	 }
-});	
+     img.appendTo($('#p1'));
+     break;
+   default:
+   break;
+   }
+}); 
 });
 
 $(document).ready(function(){
     $("#next").click(function(){ 
-	iter++;
-	switch(iter){
-	case 1:
-	 $('#head1').text('Breif introduction of ANN');
-       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');	 	
-	  	$('#p2').text('McCulloch-Pitts Neuron');
-		$('#f1').hide();
-		$('#previous').show();
-	   var img = $('<img id="f2" class="vertical">'); 
+  iter++;
+  switch(iter){
+  case 1:
+   $('#head1').text('Breif introduction of ANN');
+       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');   
+      $('#p2').text('McCulloch-Pitts Neuron');
+    $('#f1').hide();
+    $('#previous').show();
+     var img = $('<img id="f2" class="vertical">'); 
      img.attr('src', 'img/MP.jpg');
-	   img.appendTo($('#p1'));
-	  break;
-	case 2:
-	$('#head1').text('Visual Ilustration of Perceptron');
-       $('#p1').text('Finally, Frank Rosenblatt developed a machine that is able to recognise different patterns using linear threshold function in 1958. It is called perceptron as one kind of supervised learning. Perceptron is a neural network that changes with "experience", with an error-correction rule for altering the weights of connections. The simplest architecture of perceptron is made up of two layers. The first layer comprises input units and the second layer consists of output units.');	 		
-	  	   	   $('#p2').text('A single layer perceptron');
-		$('#f2').remove();
-		$('#next').hide();
-	   var img = $('<img id="f3">'); 
+     img.appendTo($('#p1'));
+    break;
+  case 2:
+  $('#head1').text('Visual Ilustration of Perceptron');
+       $('#p1').text('Finally, Frank Rosenblatt developed a machine that is able to recognise different patterns using linear threshold function in 1958. It is called perceptron as one kind of supervised learning. Perceptron is a neural network that changes with "experience", with an error-correction rule for altering the weights of connections. The simplest architecture of perceptron is made up of two layers. The first layer comprises input units and the second layer consists of output units.');     
+             $('#p2').text('A single layer perceptron');
+    $('#f2').remove();
+    $('#next').hide();
+     var img = $('<img id="f3">'); 
      img.attr('src', 'img/perceptron.PNG');
-	   img.appendTo($('#p1'));
-	   break;
+     img.appendTo($('#p1'));
+     break;
       default:
       break;
-}	  
-	});	
+}   
+  }); 
 });
 
 $(document).ready(function(){
@@ -106,9 +106,9 @@ $("#demo_p").hide();
   <h3 id="head1">Biological Neural Networks</h3>
   <p id="p1">The basic theory of BNNs is that a neuron will be fired if it has received from the presynaptic neurons a summary impulse, which exceeds a particular threshold. Each impulse is all-or-none event but the number of ionic channels triggered by the signal is different from synapse to synapse. The signal from a single synapse is able to overcome the threshold and force a neuron to fire an action potential, but other synapses could realise this only by simultaneously delivering their signals. Therefore, input from every synapse, or &quotconnection&quot;, to the neuron in the model network must be assigned with some value w, called weight of connection. Given that, it is able to draw an abstract &quot;neuron&quot; as a model unit of the artificial neural network.</p>
 <img id="f1" src="img/BNN.PNG" alt="Biological Neural Network" >
-	<p id="p2" style="text-align:center;font-size:28px">An abstract neuron</p>
-	<button id="next" class="right">next</button>
-	<button id="previous" class="left" >previous</button>  
+  <p id="p2" style="text-align:center;font-size:28px">An abstract neuron</p>
+  <button id="next" class="right">next</button>
+  <button id="previous" class="left" >previous</button>  
   </div>
 
 <div id="Demo" class="tabcontent">
@@ -121,7 +121,7 @@ $("#demo_p").hide();
  
 <div id="UserGuide" class="tabcontent">
   <h3 id="head3">User Guide</h3>
-  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter valid numbers of learning rate (C), stop value (stopValue), threshold and maximum number of iterations(maximum_iteration). Typically, the range of C is 0.1~0.5, the stopValue is <= 0.01, the value of threshold is 0~7.5 (since the random initial weight is about 0-1.5) and the maximun_iteration could be >=100.</br><br>Step 3: Just click the "Define training sets" button to define the training set which has 4 patterns.</br><br>Step 4: If you hope to redefine the training sets, you could click "Modify training sets" button and choose the particular pattern to change its value. </br><br>Step 5: Ensure above settings are ok, please click "Start" button to begin the simulation.</br><br>Step 6: Click "Next" button to observe the update of weight connections and output values during each iteration.</br><br>Step 7: If the perceptron is successfully trained, "Enter testing set" button is okey for defining a new testing set to check if the perceptron is able to recognize a pattern.</p>
+  <p>The web applet is designed for visually demonstrating the procedure of perceptron learning rule. To use it, please reading the following instructions.<br><br>Step 1: Click the tab 'Run' to start the applet.</br><br>Step 2: Please enter valid numbers of learning rate (C), stop value (stopValue), threshold and maximum number of iterations(maximum_iteration). Typically, the range of C is 0.1~0.5, the stopValue is <= 0.01, the length of threshold is 3 and the maximun_iteration could be <=100 (training set here is small, no need for large amount of iterations).</br><br>Step 3: Just click the "Define training sets" button to define the training set which has 4 patterns.</br><br>Step 4: If you hope to redefine the training sets, you could click "Modify training sets" button and choose the particular pattern to change its value. </br><br>Step 5: Ensure above settings are ok, please click "Start" button to begin the simulation.</br><br>Step 6: Click "Next" button to observe the update of weight connections and output values during each iteration.</br><br>Step 7: If the perceptron is successfully trained, "Enter testing set" button is okey for defining a new testing set to check if the perceptron is able to recognize a pattern.</p>
   <p style="font-weight: bold;font-size: 20px">Note: If you find any problem in the applet, you can click the "Guide" button to see the instructions.</p>
   <p style="color: red; font-size: 30px; font-weight: bold">Warning: Any incorrect use of the applet will lead to a refresh (F5) of the web page in order to obtain a correct learning experience.</p>
   </div>
@@ -131,11 +131,11 @@ $("#demo_p").hide();
 C: <input id="c" type="text" name="learning rate" maxlength="5" size="10" style="margin-right:20px; height: 30px">
 stopValue: <input id="stopvalue" type="text" name="stop value" maxlength="10" size="10" style="margin-right:200px; height: 30px ">
 threshold: <input id="threshold" type="text" name="threshold" size="10" maxlength="3" style="margin-right: 20px; height: 30px">
-maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlength="7" style="margin-right: 20px; height: 30px">
+maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlength="3" style="margin-right: 20px; height: 30px">
 <input type="button" value="Define training sets" id="btn0" class="btn0">
 <input type="button" value="Modify training sets" id="btn01" class="btn01">
-<input type="button" value="Start" id="btn1" class="btn1" disabled>	
-<input type="button" value="Next" id="btn2" class="btn2" disabled>	
+<input type="button" value="Start" id="btn1" class="btn1" disabled> 
+<input type="button" value="Next" id="btn2" class="btn2" disabled>  
 <input type="button" value="Guide" id="btn3" class="btn3">
 <input type="button" value="Enter testing set" id="btn4" class="btn4" disabled>
 </form >
@@ -163,19 +163,19 @@ maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlen
    <input type="button"  style="font-size: 20px; margin-left: 150px; display: none" value="submit" id="sub">
   </form>
   <img src="img/RMS.PNG" id="RMS" style="display: none;" ></img>
-  </div>	
+  </div>  
  <script>     //jquery use .ready() to ensure the document is loaded. so if place this tag ahead the <body>. it will stop the <div> elements
 function openSector(evt, sectorName) {
     var i, tabcontent, tablinks, run;
     tabcontent = document.getElementsByClassName("tabcontent");
-	run=document.getElementsByClassName("run");
+  run=document.getElementsByClassName("run");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-	for (i=0; i<run.length;i++)
-	{ 
-	    run[i].style.display="none";
-	}
+  for (i=0; i<run.length;i++)
+  { 
+      run[i].style.display="none";
+  }
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
