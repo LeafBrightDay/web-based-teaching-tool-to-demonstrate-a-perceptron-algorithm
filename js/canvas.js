@@ -340,8 +340,7 @@ arrow[j].moveTo(615,230+num*40);
 arrow[j].lineTo(615-10,230+num*40-(20-10*Math.sqrt(3))+j*(40-20*Math.sqrt(3)));// 15 degree
 arrow[j].stroke();  
 arrow[j].closePath();
-}
-}
+}}
 
 function changeIterationNumber(iter){
   var clr=canvas.getContext("2d");
@@ -379,12 +378,29 @@ if (converge) ctx.fillText("TESTING!",350,140);
 else ctx.fillText("NOT CONVERGED!",350,140);  
 }
 
+function showRecognizedPattern(num){
+var line=canvas.getContext("2d");
+line.beginPath();
+line.moveTo(585,230+num*40);  
+line.lineTo(615,230+num*40); 
+line.stroke();  
+line.closePath();
+//draw arrow 
+for (var j = 0; j < 2; j++) {
+arrow[j]=canvas.getContext("2d");
+arrow[j].beginPath();
+arrow[j].moveTo(615,230+num*40);
+arrow[j].lineTo(615-10,230+num*40-(20-10*Math.sqrt(3))+j*(40-20*Math.sqrt(3)));// 15 degree
+arrow[j].stroke();  
+arrow[j].closePath();
+}}
+
 function showTestingResult(match){
     if (match) {
     var clr=canvas.getContext("2d");
     clr.clearRect(730,390,400,30);
     alert("The testing set has been matched.\nThe corresponding pattern number is: "+perceptron.numberOfPattern);
-    showPatternNumber(perceptron.numberOfPattern);
+    showRecognizedPattern(perceptron.numberOfPattern);
     }else{
     alert("The testing set is unknown!");
     var clr=canvas.getContext("2d");
