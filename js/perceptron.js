@@ -1,9 +1,9 @@
 var perceptron = new Object();
 //initialization
 perceptron.weight= create2DArray(2,5);  // j=2 i=5
-perceptron.input= create2DArray(5,5);  // i=5 p=4  5th is for storing testing value
-perceptron.output= create2DArray(2,5);  // j=2 p=4
-perceptron.error=create2DArray(2,5);   //j=2 p=4
+perceptron.input= create2DArray(5,4);  // i=5 p=4  
+perceptron.output= create2DArray(2,5);  // j=2 p=4 5th is for storing testing value
+perceptron.error=create2DArray(2,4);   //j=2 p=4
 perceptron.targetX=create2DArray(2,4); //j=2 p=4
 perceptron.RMS=0;        
 perceptron.n_iter=0;
@@ -202,21 +202,22 @@ input_test[i-1]=perceptron.input[i][4];}
  //step3: show testing!
     showTesting(true);
  //step4: pattern recognization
-    var match=patternIsMatched();
-    showTestingResult(match);
+    recogizePattern();
 document.getElementById("btn4").addEventListener("click",enterTestingSet);
 }
 
 //for testing
-function patternIsMatched(){
+function recogizePattern(){
+    var trigger=0;
 for (var p = 0; p < 4; p++) {
 	var count=0;
-	for (var i = 1; i < 5; i++) {
-		if (perceptron.input[i][4]==perceptron.input[i][p]) {count++;}}
-	if (count==4) {
+	for (var i = 0; i < 2; i++) {
+		if (perceptron.output[i][4]==perceptron.targetX[i][p]) {count++;}}
+	if (count==2) {
 		perceptron.numberOfPattern=p;
-		return true;}}
-	return false;}   
+		trigger++;
+		showTestingResult(true);}}
+	if (trigger==0) showTestingResult(false);}   
 
 //for define/modify
 function checkDuplicateDefine(){
