@@ -229,18 +229,19 @@ for (var p = 0; p < 4; p++) {
 
 //for define/modify
 function checkDuplicateDefine(){
-for (var k = 1; k < 4; k++) {
+for(var m=0;m<3;m++){
+for (var k = m+1; k < 4; k++) {
 var count=0;
 for (var i = 1; i < 5; i++) {
-if (perceptron.input[i][0]==perceptron.input[i][k]) count++;
+if (perceptron.input[i][m]==perceptron.input[i][k]) count++;
 if (count==4) {  //4 inputs are identical.
 	var temp=0;
 	for (var j = 0; j < 2; j++) {
-	if (perceptron.targetX[j][0]==perceptron.targetX[j][k]) temp++;
+	if (perceptron.targetX[j][m]==perceptron.targetX[j][k]) temp++;
 	if (temp==2) {//2 target outputs are identical
 	alert("The training set has duplicate pattern.\nPlease define it again!");
 	return true;
-}}}}}return false;}
+}}}}}}return false;}
 
 function finishSetting(np,id){
 	perceptron.input[0][np]=1;//bias
