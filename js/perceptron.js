@@ -86,6 +86,14 @@ function continueClicked(){
     	alert("Please check target outputs, they should be 0 or 1.");
 		return;}
 	document.getElementById("pattern").innerHTML="Pattern number: "+ (perceptron.numberOfPattern+1);
+	document.getElementById("myTable").rows[perceptron.numberOfPattern+1].cells[2].innerHTML=
+	perceptron.targetX[0][perceptron.numberOfPattern]+
+	perceptron.targetX[1][perceptron.numberOfPattern];
+	document.getElementById("myTable").rows[perceptron.numberOfPattern+1].cells[1].innerHTML=
+    perceptron.input[1][perceptron.numberOfPattern]+
+    perceptron.input[2][perceptron.numberOfPattern]+
+    perceptron.input[3][perceptron.numberOfPattern]+
+    perceptron.input[4][perceptron.numberOfPattern];
     perceptron.numberOfPattern++;
     if (perceptron.numberOfPattern==3) {
     document.getElementById("tbd").style.display="none";
@@ -125,8 +133,11 @@ function startClicked(){
 	if (!Number.isInteger(Number(perceptron.maxIter))) {
 		alert("Please enter maximun iteration again, the input should be an integer!");
 		exit=true;}
-	if(!validateLengthOfInput(perceptron.maxIter,7)) {
-		alert("Please enter maximun iteration again, the max length is 7!");
+	if(!validateLengthOfInput(perceptron.maxIter,3)) {
+		alert("Please enter maximun iteration again, the max length is 3!");
+		exit=true;}
+	if (perceptron.learningRate<=0 || perceptron.stopValue<=0 || perceptron.maxIter<=0) {
+		alert("Your input is not positive.\nPlease enter it again!");
 		exit=true;}
 	if (exit) return;
 	alert("The learningRate is: "+ 
@@ -152,13 +163,10 @@ document.getElementById("btn1").addEventListener("click",startClicked);
 //show from pattern 0 to 3, each pattern per next click
 
 function nextClicked(){
+ document.getElementById("btn2").removeEventListener("click",nextClicked);
  if (perceptron.n_iter<perceptron.maxIter)
  learningProcess();
- if (perceptron.n_iter==perceptron.maxIter){ 
- alert("Reached maximun iteration times!\nThe perceptron is not converged!");
-document.getElementById("btn2").disabled="true";
-showTesting(false); // not converged
-}}
+ }
 document.getElementById("btn2").addEventListener("click",nextClicked);
 
 function guideClicked(){
@@ -252,6 +260,14 @@ function finishSetting(np,id){
     document.getElementById("setting").style.display="none";
     drawInputUnits(perceptron.input);
     drawTargetX(perceptron.targetX); //draw target output
+    document.getElementById("myTable").rows[4].cells[2].innerHTML=
+	perceptron.targetX[0][3]+
+	perceptron.targetX[1][3];
+	document.getElementById("myTable").rows[4].cells[1].innerHTML=
+	perceptron.input[1][3]+
+	perceptron.input[2][3]+
+	perceptron.input[3][3]+
+	perceptron.input[4][3];
     // if all patterns are different, tbd...
     if(checkDuplicateDefine()) {
     document.getElementById("tbd").style.display="block";
@@ -280,8 +296,8 @@ function validateBoundOfInput(x,lowerbound,upperbound){
 	try{
 		if (x== "") throw "empty";
 		if (isNaN(x)) throw "invalid";
-		x=Number(x); //return the value of the string
-		if (!Number.isInteger(x)) throw "not an integer";
+		if (!isInteger(x)) throw "not an integer";
+		x=Number(x); //get the value of string
 		if (x<lowerbound) throw "too small";
 		if (x>upperbound) throw "too large";
 	}
@@ -290,6 +306,12 @@ function validateBoundOfInput(x,lowerbound,upperbound){
         return false;
 	}
 	return true;}
+
+function isInteger(x){
+	for (var i = 0; i < x.length; i++) {
+		if(x[i]=='.') return false;	
+	}return true;
+}
 
 function limitLengthOfFloat(number,length){
     var str=number.toString();
@@ -315,7 +337,6 @@ function validateLengthOfInput(x,max_length){
 }
 
 var nop=0;//number of pattern
-var stopLearn;
 function learningProcess(){
 	//step 0: clean vertical arrow
 	 wipeVertical(585);
@@ -338,11 +359,17 @@ function learningProcess(){
  if (nop==3) {
  	nop=0;
  	clearTimeout(timeOutId);
+ 	document.getElementById("btn2").addEventListener("click",nextClicked);
  	alert("One iteration finished, starting calculate RMS......");
  	perceptron.calculateRMS();//iter++
  	drawRMS(perceptron.RMS);
- 	if (perceptron.RMS>perceptron.stopValue)
- 	changeIterationNumber(perceptron.n_iter); 
+ 	if (perceptron.n_iter==perceptron.maxIter){ 
+    alert("Reached maximun iteration times!\nThe perceptron is not converged!");
+    document.getElementById("btn2").disabled="true";
+    showTesting(false); // not converged
+    return;}
+ 	if (perceptron.RMS>perceptron.stopValue){
+ 	changeIterationNumber(perceptron.n_iter);} 
  	else{alert("RMS is less than the stopValue, the computation is stopped!"); 
  	document.getElementById("btn2").disabled="true";
  	document.getElementById("btn4").removeAttribute("disabled");
