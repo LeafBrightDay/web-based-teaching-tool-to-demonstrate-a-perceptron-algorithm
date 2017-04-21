@@ -23,7 +23,7 @@ $(document).ready(function(){
     break;
   case 1:
   $('#head1').text('Breif introduction of ANN');
-       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. It is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');     
+       $('#p1').text('The first artificial neuron is constructed by Warren S. McCulloch and Walter Pitts in 1943. Hence it is called McCulloch-Pitts neuron, which made a foundation for storing information and doing arithmetical operation. It is capable of implementing ‘AND’, ‘OR’, and ‘NOT’ logical operations. The ANNs cannot only used for storing information or carrying out simple operations. Therefore, Hebb proposed his learning rule for ANNs in 1949. it is said that a particular type of use-dependent modification of the weight of connection of synapses might underlie learning in the nervous system. He introduced a neurophysiological postulate: "When an axon of cell A is near enough to excite a cell B and repeatedly and persistently tales part in firing it, some growth process or metabolic change takes place in one or both cells, such that A’s efficiency as one of the cells firing B, is increased." The Hebbian rule is applied for unsupervised learning.');     
              $('#p2').text('McCulloch-Pitts Neuron');
     $("#f3").remove();    
     $('#next').show();
@@ -53,7 +53,7 @@ $(document).ready(function(){
     break;
   case 2:
   $('#head1').text('Visual Ilustration of Perceptron');
-       $('#p1').text('Finally, Frank Rosenblatt developed a machine that is able to recognise different patterns using linear threshold function in 1958. It is called perceptron as one kind of supervised learning. Perceptron is a neural network that changes with "experience", with an error-correction rule for altering the weights of connections. The simplest architecture of perceptron is made up of two layers. The first layer comprises input units and the second layer consists of output units.');     
+       $('#p1').text('Finally, Frank Rosenblatt developed a machine that is able to recognise different patterns using linear threshold function in 1958. It is called perceptron as one kind of supervised learning. Perceptron is a neural network that changes with "experience", with an error-correction rule for altering the weights of connections. The simplest architecture of perceptron is made up of two layers. The first layer comprises input units and the second layer consists of output units. The perceptron is a linear classifier, therefore it will never get to the state with all the input vectors classified correctly if the training set is not linearly separable.');     
              $('#p2').text('A single layer perceptron');
     $('#f2').remove();
     $('#next').hide();
@@ -141,6 +141,33 @@ maximum_iteration: <input id="iter" type="text" name="max_iter" size="10" maxlen
 </form >
   <canvas id="myCanvas" width="1087" height="579" class="canvas"></canvas>
   <form id="setting" style="display: none" class="setting">
+  <table id="myTable" style="position: absolute; display: block; left: 900px;top:450px">
+  <tr>
+    <th>np</th>
+    <th>a=1,2,3,4</th>
+    <th>X=1,2</th> 
+  </tr>
+  <tr>
+    <td>0</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+  <td>1</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+  <td>2</td>
+    <td></td>
+    <td></td>
+  </tr>
+   <tr>
+  <td>3</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
   <p id="pattern"> Pattern number: 0 </p><br>
    The number you input should be 0 or 1.<br><br>
    a1: <input id="in1" type="number" name="input unit 1" min="0" max="1" value="0" maxlength="1" style="font-size: 20px"> <br><br>
