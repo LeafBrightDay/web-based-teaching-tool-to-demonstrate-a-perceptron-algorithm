@@ -1,5 +1,5 @@
 var perceptron = new Object();
-//initialization
+//initialization，an object inherited from Object class
 perceptron.weight= create2DArray(2,5);  // j=2 i=5
 perceptron.input= create2DArray(5,4);  // i=5 p=4  
 perceptron.output= create2DArray(2,5);  // j=2 p=4 5th is for storing testing value
@@ -13,7 +13,7 @@ perceptron.stopValue=0;
 perceptron.learningRate=0;
 perceptron.numberOfPattern=0;
 var id=["in1","in2","in3","in4"];
-
+//member functions
 perceptron.generateRandomWeight=function(){
 for (var j = 0; j < 2; j++) {
 		for (var i = 0; i < 5; i++) {
@@ -35,7 +35,7 @@ for (var j = 0; j < 2; j++) {
  	else{this.output[j][p]=0;}
 }};
 
-//calculate input pattern
+//calculate pointed pattern
 perceptron.updateWeight=function(p){
 	for (var j = 0; j < 2; j++) {
 		for (var i = 0; i < 5; i++) {
@@ -60,7 +60,6 @@ for (var i = 0; i < row; i++) {
 return arr;
 };
 
-//triggered by start and then set the threshold, stop value and maximun iteration.
 function defineTrainingSet(){
 perceptron.numberOfPattern=0; //initialization np=0
 document.getElementById("myCanvas").style.display="none";
@@ -116,7 +115,7 @@ function modifyTrainingSet(){
     showPatternNumber(perceptron.numberOfPattern);
 }
 
-//randomly generate initial weight of connections
+//triggered by start and then set the threshold, stop value and maximun iteration.
 function startClicked(){
 	getParameters();
 	alert("Reading input parameters......");
@@ -146,7 +145,7 @@ function startClicked(){
 		perceptron.threshold+"\nThe maximun iteration is: "+
 		perceptron.maxIter);
 	alert("Start generating random weights of connections......");
-	perceptron.generateRandomWeight();
+	perceptron.generateRandomWeight();//randomly generate initial weight of connections
 	drawInitialWeight(perceptron.weight);
 	drawThreshold(perceptron.threshold);
 	document.getElementById("c").disabled="true";
@@ -160,14 +159,14 @@ function startClicked(){
 }
 document.getElementById("btn1").addEventListener("click",startClicked);
 
+var iterSpeed=0;
 //show from pattern 0 to 3, each pattern per next click
-
 function nextClicked(){
  document.getElementById("btn2").removeEventListener("click",nextClicked);
  if (perceptron.n_iter<perceptron.maxIter)
- learningProcess();
- }
+ learningProcess();}
 document.getElementById("btn2").addEventListener("click",nextClicked);
+document.getElementById("btn2").addEventListener("mousedown",selectIterSpeed);
 
 function guideClicked(){
    var x= confirm("Are you sure to see the user guide?");
@@ -184,9 +183,7 @@ function enterTestingSet(){
     document.getElementById("pattern1").innerHTML="Please enter your testing inputs.";
     document.getElementById("btn4").removeEventListener("click",enterTestingSet);
     document.getElementById("sub").style.display="block";
-    document.getElementById("sub").onclick=function(){readTestingInput(t);};
-
-};
+    document.getElementById("sub").onclick=function(){readTestingInput(t);};};
 document.getElementById("btn4").addEventListener("click",enterTestingSet);
 
 function readTestingInput(t){
@@ -198,6 +195,8 @@ for (var i = 1; i < 5; i++) {
 perceptron.input[i][4]=document.getElementById(t[i-1]).value; 
 if (!validateBoundOfInput(perceptron.input[i][4],0,1)) {
 	alert("Please check input units, they should be 0 or 1.");
+	document.getElementById("myCanvas").style.display="none";
+    document.getElementById("testing").style.display="block"; 
 	return;}
 input_test[i-1]=perceptron.input[i][4];}
 //step 0: clean vertical arrow
@@ -210,38 +209,9 @@ input_test[i-1]=perceptron.input[i][4];}
  //step3: show testing!
     showTesting(true);
  //step4: pattern recognization
-    recogizePattern();
+    recognizePattern();
 document.getElementById("btn4").addEventListener("click",enterTestingSet);
 }
-
-//for testing
-function recogizePattern(){
-    var trigger=0;
-for (var p = 0; p < 4; p++) {
-	var count=0;
-	for (var i = 0; i < 2; i++) {
-		if (perceptron.output[i][4]==perceptron.targetX[i][p]) {count++;}}
-	if (count==2) {
-		perceptron.numberOfPattern=p;
-		trigger++;
-		showTestingResult(true);}}
-	if (trigger==0) showTestingResult(false);}   
-
-//for define/modify
-function checkDuplicateDefine(){
-for(var m=0;m<3;m++){
-for (var k = m+1; k < 4; k++) {
-var count=0;
-for (var i = 1; i < 5; i++) {
-if (perceptron.input[i][m]==perceptron.input[i][k]) count++;
-if (count==4) {  //4 inputs are identical.
-	var temp=0;
-	for (var j = 0; j < 2; j++) {
-	if (perceptron.targetX[j][m]==perceptron.targetX[j][k]) temp++;
-	if (temp==2) {//2 target outputs are identical
-	alert("The training set has duplicate pattern.\nPlease define it again!");
-	return true;
-}}}}}}return false;}
 
 function finishSetting(np,id){
 	perceptron.input[0][np]=1;//bias
@@ -293,6 +263,35 @@ function getParameters(){
 	perceptron.maxIter=document.getElementById("iter").value;
 }
 
+//for testing
+function recognizePattern(){
+    var trigger=0;
+for (var p = 0; p < 4; p++) {
+	var count=0;
+	for (var i = 0; i < 2; i++) {
+		if (perceptron.output[i][4]==perceptron.targetX[i][p]) {count++;}}
+	if (count==2) {
+		perceptron.numberOfPattern=p;
+		trigger++;
+		showTestingResult(true);}}
+	if (trigger==0) showTestingResult(false);}   
+
+//for define/modify
+function checkDuplicateDefine(){
+for(var m=0;m<3;m++){
+for (var k = m+1; k < 4; k++) {
+var count=0;
+for (var i = 1; i < 5; i++) {
+if (perceptron.input[i][m]==perceptron.input[i][k]) count++;
+if (count==4) {  //4 inputs are identical.
+	var temp=0;
+	for (var j = 0; j < 2; j++) {
+	if (perceptron.targetX[j][m]==perceptron.targetX[j][k]) temp++;
+	if (temp==2) {//2 target outputs are identical
+	alert("The training set has duplicate pattern.\nPlease define it again!");
+	return true;
+}}}}}}return false;}
+
 function validateBoundOfInput(x,lowerbound,upperbound){
 	try{
 		if (x== "") throw "empty";
@@ -308,6 +307,7 @@ function validateBoundOfInput(x,lowerbound,upperbound){
 	}
 	return true;}
 
+//can be used in IE
 function isInteger(x){
 	for (var i = 0; i < x.length; i++) {
 		if(x[i]=='.') return false;	
@@ -336,6 +336,12 @@ function validateLengthOfInput(x,max_length){
     }
     return true;
 }
+
+function selectIterSpeed(){
+document.getElementById("btn2").removeEventListener("mousedown",selectIterSpeed);
+var x=confirm("Do you want to use the fast mode (0.5sec/iter)?");
+if (x==true) iterSpeed=500;
+else{iterSpeed=1500;}}
 
 var nop=0;//number of pattern
 function learningProcess(){
@@ -375,7 +381,7 @@ function learningProcess(){
  	document.getElementById("btn2").disabled="true";
  	document.getElementById("btn4").removeAttribute("disabled");
  }return;}
-    timeOutId=setTimeout(learningProcess,1500); //delay 1.5 secs
+    timeOutId=setTimeout(learningProcess,iterSpeed); //delay 
     nop++;
  }
 
